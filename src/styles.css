@@ -1,0 +1,196 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Space Mono", ui-monospace, monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-honey: var(--honey);
+  --color-panel: var(--panel);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.951 0.018 85);
+  --foreground: oklch(0.26 0.01 60);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.26 0.01 60);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.26 0.01 60);
+  --primary: oklch(0.42 0.065 170);
+  --primary-foreground: oklch(0.951 0.018 85);
+  --secondary: oklch(0.917 0.025 85);
+  --secondary-foreground: oklch(0.26 0.01 60);
+  --panel: oklch(0.917 0.025 85);
+  --muted: oklch(0.93 0.02 85);
+  --muted-foreground: oklch(0.5 0.015 60);
+  --accent: oklch(0.58 0.15 45);
+  --accent-foreground: oklch(0.98 0.01 85);
+  --honey: oklch(0.75 0.15 70);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.26 0.01 60 / 10%);
+  --input: oklch(0.26 0.01 60 / 15%);
+  --ring: oklch(0.42 0.065 170);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+@utility field {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: var(--color-card);
+  border: 1px solid var(--color-input);
+  padding: 0.45rem 0.65rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  &:focus { border-color: var(--color-ring); box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-ring) 18%, transparent); }
+}
+
+@utility label-cap {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted-foreground);
+}
+
+@utility btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+  font-size: 0.875rem; padding: 0.5rem 0.9rem; border-radius: var(--radius-md);
+  background: var(--color-panel); box-shadow: 0 0 0 1px oklch(0 0 0 / 5%);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  &:hover {
+    background: color-mix(in oklab, var(--color-panel) 85%, var(--color-foreground));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px oklch(0 0 0 / 8%);
+  }
+  &:active { transform: translateY(0); }
+  &:disabled { opacity: 0.5; pointer-events: none; }
+}
+
+@utility btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+  font-size: 0.875rem; font-weight: 500; padding: 0.5rem 0.9rem; border-radius: var(--radius-md);
+  background: var(--color-primary); color: var(--color-primary-foreground);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  box-shadow: 0 2px 8px color-mix(in oklab, var(--color-primary) 25%, transparent);
+  &:hover {
+    background: color-mix(in oklab, var(--color-primary) 88%, black);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px color-mix(in oklab, var(--color-primary) 35%, transparent);
+  }
+  &:active { transform: translateY(0); }
+}
+
+@utility card-surface {
+  background: var(--color-card);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 0 0 1px oklch(0 0 0 / 5%), 0 2px 8px oklch(0 0 0 / 4%);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(8px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.75; transform: scale(1.06); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 32s linear infinite;
+}
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px oklch(0 0 0 / 8%), 0 0 0 1px oklch(0 0 0 / 8%);
+}
